@@ -2,62 +2,88 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Service Expired - TEXNET HOME FIBER</title>
+  <title>Account Expired - TEXNET HOME FIBER</title>
   <style>
     body {
-      background-color: #b71c1c;
-      font-family: Arial, sans-serif;
-      color: #fff;
-      padding: 40px;
+      background-color: #fff0f0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
       text-align: center;
+      padding: 40px;
     }
-    .box {
-      background-color: #fff;
-      color: #000;
+
+    .container {
+      background-color: #ffffff;
+      border: 2px solid #d32f2f;
+      border-radius: 10px;
+      padding: 30px;
       max-width: 600px;
       margin: auto;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      box-shadow: 0 0 10px rgba(211, 47, 47, 0.2);
     }
+
     h1 {
-      color: #b71c1c;
+      color: #d32f2f;
     }
-    .section {
-      margin: 20px 0;
+
+    .highlight {
+      color: #d32f2f;
+      font-weight: bold;
     }
+
     .footer {
       margin-top: 30px;
-      font-weight: bold;
-      color: #555;
+      color: #666;
+      font-size: 0.9em;
     }
   </style>
 </head>
 <body>
-  <div class="box">
+  <div class="container">
     <h1>Dear Client,</h1>
-    <div class="section">
-      <p>Your internet service has <strong>already expired</strong>.</p>
-      <p><strong>Expiry Date and Time:</strong> <span style="color: #b71c1c;">(e.g., July 5, 2025 at 8:16 PM)</span></p>
-      <p>Please renew your subscription to restore your connection.</p>
-    </div>
+    <p>Your internet service has <span class="highlight">expired</span>.</p>
 
-    <div class="section">
-      <h3>Payment Details</h3>
-      <p><strong>Pay Bill:</strong> 222111</p>
-      <p><strong>Account Number:</strong> 162238</p>
-    </div>
+    <p>
+      <strong>Expiry Date and Time:</strong><br>
+      <span id="expiryDate" class="highlight">Loading...</span>
+    </p>
 
-    <div class="section">
-      <h3>Need Help?</h3>
-      <p>Contact our support team:</p>
-      <p>0717893086 or 0703127286</p>
-    </div>
+    <p>Please renew now to restore your connection.</p>
+
+    <h3>Payment Details</h3>
+    <p><strong>Pay Bill:</strong> 222111</p>
+    <p><strong>Account Number:</strong> 162238</p>
+
+    <h3>Need Help?</h3>
+    <p>Call us at: 0717893086 or 0703127286</p>
 
     <div class="footer">
       TEXNET HOME FIBER – Fast, Affordable, Reliable
     </div>
   </div>
+
+  <script>
+    // Simulate comment from MikroTik PPP Secret
+    const pppComment = "name=George Kamau;exp=2025-07-05T20:16:00;phone=0724110533";
+
+    // Extract expiry time from comment
+    function extractExpiry(comment) {
+      const match = comment.match(/exp=([\d\-T:]+)/);
+      return match ? new Date(match[1]) : null;
+    }
+
+    const expiryDate = extractExpiry(pppComment);
+    const displayElement = document.getElementById("expiryDate");
+
+    if (expiryDate) {
+      const options = { 
+        year: "numeric", month: "long", day: "numeric", 
+        hour: "2-digit", minute: "2-digit", hour12: true 
+      };
+      displayElement.textContent = expiryDate.toLocaleString("en-US", options);
+    } else {
+      displayElement.textContent = "Unavailable";
+    }
+  </script>
 </body>
 </html>
-
